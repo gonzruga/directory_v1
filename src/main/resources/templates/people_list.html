@@ -1,0 +1,58 @@
+<div th:replace="/Fragments/head"></div>
+
+<div class="gonza">
+
+    <h3>BUSINESSES</h3>
+    <p th:text="'Here is a list of great businesses:'" />
+
+    <br>
+
+    <dl th:each="business : ${people}">
+        <p>A business should be displayed</p>
+        <dd > <b th:text="${business.firstName} + ' ' + ${business.lastName}"> </b></dd>
+        <dd> <i class="fa-solid fa-venus-mars"></i> <span th:text="${business.getPhysicalAddress}"></span> </dd>
+        <dd> <i class="fa-solid fa-location-dot"></i> <span th:text="${business.getLocation}"></span> </dd>
+        <dd> <i class="fa-solid fa-user-tie"></i> <span th:text="${business.getCategory}"></span></dd>
+        <dd> <i class="fa-solid fa-basketball"></i> <span th:text="${business.getTinNumber}"></span>  </dd>
+        <dd> <i class="fa-solid fa-globe"></i> <span  th:text="${business.link}" ></span> </dd>
+        <dd> Reviews: </dd>
+        <dd>
+            <form action="#" th:action="@{reviewForm/1/Jones}" method="get">
+                <input type="submit" value="Add review"  />
+<!--                <input type="text" name="personId" th:value="${business.id}" hidden="hidden">-->
+<!--                <input type="text" name="personName" th:value="${business.firstName}" hidden="hidden">-->
+
+            </form>
+
+        </dd>
+
+<!--        <dd>-->
+<!--            <form th:action="@{reviewParam}" method="get">-->
+<!--                <input type="submit" value="Add review"  />-->
+<!--                <input type="text" name="personId" th:value="${business.id}" hidden="hidden">-->
+<!--                <input type="text" name="personName" th:value="${business.firstName}" hidden="hidden">-->
+
+<!--            </form>-->
+
+<!--        </dd>-->
+
+
+        <dd>
+            <a
+                    style="border: 1px solid gray; padding: 12px 6px; border-radius: 4px;"
+                    th:href="@{reviewForm/{personId}(personId = ${business.id})}">Review Form</a>
+        </dd>
+        <br>
+        <hr>
+    </dl>
+
+    <br>
+
+    <br>
+    <a href="/">Go to Homepage</a>
+
+    </form>
+
+</div>
+
+<div th:replace="/Fragments/footer"></div>

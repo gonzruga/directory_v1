@@ -1,0 +1,29 @@
+<div th:replace="/Fragments/head"></div>
+
+<h2> WRITE A REVIEW</h2>
+
+<p th:text="'Write an honest review for business # ' + ${personId}"/>
+<!--<p th:object="${person}" th:value="*{firstName}"></p>-->
+
+<p th:text="'You may include: '"/>
+<p th:text="'* How you came accross the business.'" />
+<p th:text="'* What did you first buy'" />
+<p th:text="'* What were your first impressions and how was the service?'" />
+
+<form th:action="@{/reviewSubmit}" th:object="${review}" method="POST">
+
+    <p> <input type="text" th:field="*{reviewSubject}" th:value="${personId}"  /></p>
+    <p> <input type="text" th:field="*{reviewContent}" placeholder="Insert your review here" /></p>
+    <p> <input type="text" th:field="*{reviewWriterName}" placeholder="Insert your name" /></p>
+
+    <br>
+    <input type="submit" value="Submit Review" />
+
+
+    <input type="reset" value="Reset" />
+
+
+
+</form>
+
+<div th:replace="/Fragments/footer"></div>

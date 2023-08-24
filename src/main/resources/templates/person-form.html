@@ -1,0 +1,37 @@
+<div th:replace="/Fragments/head"></div>
+<h2>ADD A BUSINESS ENTITY</h2>
+<p th:text="'To add your business entity, fill in the form below.(* Hidden)'" />
+
+<form th:action="@{/submitForm}" th:object="${business}" method="POST">
+
+<!--    <form class="col-5"></form> //To make form field cover 5 box areas-->
+
+<!-- "firstName" is property of Person class. i.e. it has getters and setters.
+We inject model properties (data attributes) into Thymeleaf expressions-->
+
+
+    <p>First Name: <input type="text" th:field="*{firstName}" placeholder="First Name" id="firstName" /></p>
+    <p>Second Name: <input type="text" th:field="*{lastName}" /></p>
+
+    <p>Gender: <br>
+    Male
+    <input type="radio" th:field="*{gender}" th:value="Male" /><br>
+    Femaile
+    <input type="radio" th:field="*{gender}" th:value="Female" />
+    </p>
+
+    <p>Email*: <input type="text" th:field="*{email}" /></p>
+    <p>Mobile*: <input type="text" th:field="*{mobile}" /></p>
+    <p>Location (e.g. Mwenge): <input type="text" th:field="*{residence}" /></p>
+    <p>Profession/Industry/Company: <input type="text" th:field="*{profession}" /></p>
+    <p>Speciality: <input type="text" th:field="*{hobbies}" /></p>
+    <p>Link: Social media, website, etc - related to your company:</p>
+    <input type="text" th:field="*{link}" />
+
+    <br>
+    <input type="submit" value="Create Profile" />
+    <input type="reset" value="Reset" />
+
+</form>
+
+<div th:replace="/Fragments/footer"></div>
