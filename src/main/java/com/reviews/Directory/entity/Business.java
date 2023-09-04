@@ -23,9 +23,6 @@ public class Business {
     private Long id;
 
     private String businessName;
-    private String firstName;
-    private String lastName;
-
     private String email;
     private String mobile;
 
@@ -61,20 +58,19 @@ public class Business {
 }
 
 /*
-{
-        "id": "2"
-        "businessName":"ABC Limited"
-        "firstName":"John",
-        "lastName":"Doe",
-        "email":"office@gmail.com",
-        "mobile":"0712345678"
-        "physicalAddress":"12 Faru Road",
-        "location":"Mwenge",
-        "category":"Technology",
-        "tinNumber":"123456",
-        "link":"www.instagram.com/abcltd",
-        "created_at":"2023-07-24 10:10:20",
-        "updated_at":"2023-07-27 10:10:20"
-        }
 
- */
+{
+    "id": "2",
+    "businessName":"ABC Limited",
+    "email":"office@gmail.com",
+    "mobile":"0712345678",
+    "physicalAddress":"12 Faru Road",
+    "location":"Mwenge",
+    "category":"Technology",
+    "tinNumber":"123456",
+    "link":"www.instagram.com/abcltd",
+    "created_at":"2023-07-24 10:10:20",
+    "updated_at":"2023-07-27 10:10:20"
+}
+
+*/

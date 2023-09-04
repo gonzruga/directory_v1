@@ -14,24 +14,30 @@ import java.util.List;
 
 @Controller // For attaching FORM since 'RestController' does not.
 public class ReviewController {
-
     @Autowired
     private ReviewService service;
-// CREATE - POST
-//    @PostMapping("/addReview")
-//    public Review addReview1(@RequestBody Review review) {
-//        return service.saveReview(review);   }  // Version
 
-    @PostMapping("/addReview")
-    public ResponseEntity<?> addReview(@RequestBody Review review) {
+// CREATE - POST
+    @PostMapping("/addReview1")
+    public Review addReview1(@RequestBody Review review) {
+        return service.saveReview(review);   }
+
+    @PostMapping("/addReviews")
+    public List<Review> addReviews(@RequestBody List<Review> reviews) {
+    return service.saveReviews(reviews);
+}
+
+
+    @PostMapping("/addReview2")
+    public ResponseEntity<?> addReview2(@RequestBody Review review) {
         return new ResponseEntity<>(service.saveReview(review), HttpStatus.OK) ;
     }
+
     @PostMapping("/addReviewDto")
-    public ResponseEntity<Review> addReview(@RequestBody ReviewDto review) {
+    public ResponseEntity<Review> addReviewDto(@RequestBody ReviewDto review) {
         return new ResponseEntity<>(service.saveReviewDto(review), HttpStatus.OK) ;
     }
 
-    //<a th:href="@{/reviewsForm/{gonzaId}(gonzaId = ${person.id})}"></a>
 /*
     @GetMapping("/reviewForm/{personId}")
     public List<Review> findAllReviews(@PathVariable Long personId, Model model){
@@ -39,10 +45,6 @@ public class ReviewController {
         return "";
     }
 */
-    @PostMapping("/addReviews")
-    public List<Review> addReviews(@RequestBody List<Review> reviews) {
-        return service.saveReviews(reviews);
-    }
 
 // READ - GET*
     @GetMapping("/reviews")
@@ -58,7 +60,7 @@ public class ReviewController {
         return service.getReviewByReviewWriterName(reviewWriterName);
     }
 
-    //BY iD
+    //BY ID
     @GetMapping("/people/{id}")
     public ResponseEntity<List<Review>> findAllByReviewSubject_Id(@PathVariable Long id){
         return ResponseEntity.ok(service.getReviews(id));
@@ -79,7 +81,7 @@ public class ReviewController {
 
 
 
-// GET / READ WITH MODELS ATTRIBUTES
+// ADD REVIEW FORM & SUBMISSION: GET - READ WITH MODELS ATTRIBUTES
 
     @GetMapping("/reviewForm/{personId}/{personName}")
     public String reviewForm(
@@ -87,11 +89,12 @@ public class ReviewController {
             @PathVariable(name="personName") String personName,
             Model theModel
     ) {
-        // Create REVIEW object as a model attribute.
+
+    // Create REVIEW object as a model attribute.
         Review theReview = new Review();
         theModel.addAttribute("personId",personId);
         theModel.addAttribute("review", theReview);  // Name & value of attribute.
-        return "review-form";
+        return "form-review";
     }
 
     @PostMapping("/reviewSubmit/{id}")
@@ -111,3 +114,18 @@ public class ReviewController {
     }
 
 }
+
+/*
+
+{
+    "id" : "1"
+    "reviewContent" : "ABC Limited do great work",
+    "reviewWriterName" : "John Doe"
+
+    "review_subject_id" : "1"
+
+    "created_at":"2023-07-24 10:10:20",
+    "updated_at":"2023-07-27 10:10:20"
+}
+
+*/

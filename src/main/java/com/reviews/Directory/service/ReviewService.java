@@ -25,7 +25,7 @@ public class ReviewService {
     }
     public Review saveReviewDto(ReviewDto review) {
         try {
-            Business business = personService.getPersonById(review.getReviewSubjectId());
+            Business business = personService.getBusinessById(review.getReviewSubjectId());
             if (business != null){
                 Review review1 = new Review();
                 review1.setReviewSubject(business);
