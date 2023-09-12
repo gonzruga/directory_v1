@@ -96,14 +96,18 @@ public class ReviewController {
         return "form-review";
     }
 
-    /*
-    @GetMapping("/rev/{businessId}")
-    public List<Review> findAllReviews(@PathVariable Long personId, Model model){
-        model.addAttribute("personId",personId);
-        return "";
+    @GetMapping("/reviewParam/{businessId}")
+    public String reviewParam1(
+            @PathVariable(name="businessId") Long businessId,
+            Model theModel
+    ) {
+        Review theReview = new Review();
+        theModel.addAttribute("businessId",businessId);
+        theModel.addAttribute("review", theReview);  // Name & value of attribute.
+        return "form-review";
     }
-*/
-    @GetMapping("/reviewParam/{businessId}/{businessName}")
+
+    @GetMapping("/reviewParam2/{businessId}/{businessName}")
     public String reviewFormParam(
             @PathVariable(name="businessId") Long businessId,
             @PathVariable(name="businessName") String businessName,

@@ -35,15 +35,15 @@
 
 <!--        Form with BusinessId parameter-->
 
-<!--        <dd> <form action="#" th:action="@{/reviewForm2/{businessId}(businessId=${business.id})}" method="get">-->
-<!--             <input type="submit" value="Add review"  />-->
-<!--        </form> </dd>-->
+        <dd> <form action="#" th:action="@{/reviewParam/{businessId}(businessId=${business.id})}" method="get">
+             <input type="submit" value="Add Review"  />
+        </form> </dd>
 
 <!--        Form with BusinessId & Name parameters-->
 
-        <dd> <form action="#" th:action="@{/reviewParam/{businessId}(businessId=${business.id})/{businessName}(businessName=${business.businessName})}" method="get">
-            <input type="submit" value="Add review Params"  />
-        </form> </dd>
+<!--        <dd> <form action="#" th:action="@{/reviewParam/{businessId}(businessId=${business.id})/{businessName}(businessName=${business.businessName})}" method="get">-->
+<!--            <input type="submit" value="Add review Params"  />-->
+<!--        </form> </dd>-->
 
 
         <dd>
