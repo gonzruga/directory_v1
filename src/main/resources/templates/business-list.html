@@ -27,19 +27,32 @@
 <!--        <dd th:text="${business.reviews.getReviewContent()}"></dd>-->
 <!--        <dd> <i class="fa-solid fa-globe"></i> <span  th:text="${business.reviews.stream().forEach(u -> u.get).toArray()}" ></span> </dd>-->
 
+<!--        Form with no parameters-->
+
+<!--        <dd> <form action="#" th:action="@{/reviewForm1}" method="get">-->
+<!--             <input type="submit" value="Add review"  />-->
+<!--        </form> </dd>-->
+
+<!--        Form with BusinessId parameter-->
+
+<!--        <dd> <form action="#" th:action="@{/reviewForm2/{businessId}(businessId=${business.id})}" method="get">-->
+<!--             <input type="submit" value="Add review"  />-->
+<!--        </form> </dd>-->
+
+<!--        Form with BusinessId & Name parameters-->
+
+        <dd> <form action="#" th:action="@{/reviewParam/{businessId}(businessId=${business.id})/{businessName}(businessName=${business.businessName})}" method="get">
+            <input type="submit" value="Add review Params"  />
+        </form> </dd>
+
+
         <dd>
-            <form action="#" th:action="@{/reviewParam/{businessId}(businessId=${business.id})/{businessName}(businessName=${business.businessName})}" method="get">
-                <input type="submit" value="Add review"  />
-<!--                <span th:text="${business.id}" ></span>-->
-            </form>
-        </dd>
-        <dd>
-            <form th:action="@{/editBusiness/{id}(id=${business.id})}" th:object="${business}" method="GET">
+            <form action="#" th:action="@{/editBusiness/{id}(id=${business.id})}" th:object="${business}" method="GET">
                 <input type="submit" value="Edit" />
             </form>
         </dd>
         <dd>
-                <form action="#" th:action="@{/delete/{id}(id=${business.id})}" method="get">
+            <form action="#" th:action="@{/delete/{id}(id=${business.id})}" method="get">
                 <input type="submit" value="Delete" style="color:red" />
             </form>
         </dd>
@@ -49,7 +62,7 @@
         <hr>
     </dl>
 
-<!--    <dl th:each="rev : ${business.reviews}">-->
+        <!--    <dl th:each="rev : ${business.reviews}">-->
 <!--        <dd th:text="${rev.getReviewWriterName()}" style="color:blue"> </dd>-->
 <!--        <dd th:text="${rev.getReviewContent()}"></dd>-->
 <!--    <dl>-->

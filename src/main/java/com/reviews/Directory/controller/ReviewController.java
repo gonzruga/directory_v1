@@ -2,7 +2,9 @@ package com.reviews.Directory.controller;
 
 import com.reviews.Directory.entity.Review;
 import com.reviews.Directory.entity.ReviewDto;
+import com.reviews.Directory.service.BusinessService;
 import com.reviews.Directory.service.ReviewService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +16,10 @@ import java.util.List;
 
 //@RestController  // Data
 @Controller // For attaching FORM since 'RestController' does not.
+@AllArgsConstructor
 public class ReviewController {
-    @Autowired
+    private final BusinessService businessService;
+    //@Autowired
     private ReviewService service;
 
 // CREATE - POST
@@ -76,10 +80,9 @@ public class ReviewController {
 
 // 'ADD REVIEW' FORM & SUBMISSION: GET - READ WITH MODELS ATTRIBUTES
 
-    @GetMapping("/reviewForm1")
+    @GetMapping("/reviewForm1") //NO PARAM
     public String reviewForm1(Model theModel) {
         Review theReview = new Review();
-//        theModel.addAttribute("businessId",businessId);
         theModel.addAttribute("review", theReview);  // Name & value of attribute.
         return "form-review";
     }
@@ -100,7 +103,7 @@ public class ReviewController {
         return "";
     }
 */
-    @GetMapping("/reviewParam/{id}/{businessName}")
+    @GetMapping("/reviewParam/{businessId}/{businessName}")
     public String reviewFormParam(
             @PathVariable(name="businessId") Long businessId,
             @PathVariable(name="businessName") String businessName,
@@ -117,8 +120,9 @@ public class ReviewController {
 
 
     @PostMapping("/reviewSubmit") // /{id}
-    public String reviewSubmit(@ModelAttribute Review theReview, Model theModel) {
+    public String reviewSubmit(@ModelAttribute Review theReview, Model theModel,long id) {
         theModel.addAttribute("theReview", theReview);  // Name & value of attribute.
+        theReview.setReviewSubject(businessService.getBusinessById(id));
         service.saveReview(theReview);
         return "submit-review";
     }
