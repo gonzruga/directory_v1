@@ -6,25 +6,37 @@
 <p th:text="'Edit your business details below:'" />
 <p th:text="${business.getId()}" style="display:none" />
 
-<form th:action="@{/businessPage/{id}(id=${business.id})}" th:object="${business}" method="GET">
+<form th:action="@{/update}" th:object="${business}" method="post">
 
-    <p>Business Name: <input type="text" th:value="${(business!=null)?business.getBusinessName:null}" /></p>
-    <p>Email: <input type="email" th:value="${(business!=null)?business.getEmail:null}" /></p>
-    <p>Mobile: <input type="text" th:value="${(business!=null)?business.getMobile:null}" /></p>
-    <p>Address: <input type="text" th:value="${(business!=null)?business.getPhysicalAddress:null}" /></p>
-    <p>Location (e.g. Mwenge): <input type="text" th:value="${(business!=null)?business.getLocation:null}" /></p>
-    <p>Category: <input type="text" th:value="${(business!=null)?business.getCategory:null}" /></p>
-    <p>Tin Number: <input type="text" th:value="${(business!=null)?business.getTinNumber:null}" /></p>
+    <p>Id: <input type="text" th:field="*{id}"/></p> <!-- TO-DO Hide ID -->
+    <p>Business Name: <input type="text" th:field="*{businessName}" /></p>
+    <p>Email: <input type="email" th:field="*{email}" /></p>
+    <p>Mobile: <input type="text" th:field="*{mobile}" /></p>
+    <p>Address: <input type="text" th:field="*{physicalAddress}" /></p>
+    <p>Location (e.g. Mwenge): <input type="text" th:field="*{location}" /></p>
+    <p>Category: <input type="text" th:field="*{category}" /></p>
+    <p>Tin Number: <input type="text" th:field="*{tinNumber}" /></p>
     <p>Link - Website, Social Media, etc:</p>
-    <input type="text" th:value="${(business!=null)?business.getLink:null}" />
+    <input type="text" th:field="*{link}" />
 
     <br><br>
 
-    <input type="submit" value="^Submit Changes" />
-    <input type="submit" value="Cancel" style="color:red"/>
+    <button type="submit"> Submit </button>
+<!--    <input type="submit" value="Cancel" style="color:red"/>-->
 
 </form>
 
 </div>
 
 <div th:replace="/Fragments/footer"></div>
+
+<!--    <p hidden="">Id: <input type="text" th:value="${(business!=null)?business.getId():null}" /></p>-->
+<!--    <p>Business Name: <input type="text" th:value="${(business!=null)?business.getBusinessName:null}" /></p>-->
+<!--    <p>Email: <input type="email" th:value="${(business!=null)?business.getEmail:null}" /></p>-->
+<!--    <p>Mobile: <input type="text" th:value="${(business!=null)?business.getMobile:null}" /></p>-->
+<!--    <p>Address: <input type="text" th:value="${(business!=null)?business.getPhysicalAddress:null}" /></p>-->
+<!--    <p>Location (e.g. Mwenge): <input type="text" th:value="${(business!=null)?business.getLocation:null}" /></p>-->
+<!--    <p>Category: <input type="text" th:value="${(business!=null)?business.getCategory:null}" /></p>-->
+<!--    <p>Tin Number: <input type="text" th:value="${(business!=null)?business.getTinNumber:null}" /></p>-->
+<!--    <p>Link - Website, Social Media, etc:</p>-->
+<!--    <input type="text" th:value="${(business!=null)?business.getLink:null}" /> -->

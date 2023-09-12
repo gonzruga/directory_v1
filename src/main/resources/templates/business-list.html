@@ -9,9 +9,6 @@
     <dl th:each="business : ${business}">
         <dd><a th:href="@{/businessPage/{id}(id=${business.id})}"><b th:text="${business.businessName}"> </b></a> </dd>
 
-<!--        <dd > <b th:text="${business.businessName}"> </b></dd>-->
-<!--        <dd > <b th:text="${business.id}"> </b></dd>-->
-
         <dd> <i class="fa-solid fa-envelope"></i> <span th:text="${business.getEmail}"></span> </dd>
         <dd> <i class="fa-solid fa-phone"></i> <span th:text="${business.getMobile()}"></span>  </dd>
         <dd> <i class="fa-solid fa-road"></i> <span th:text="${business.getPhysicalAddress}"></span> </dd>
@@ -38,14 +35,17 @@
         </dd>
         <dd>
             <form th:action="@{/editBusiness/{id}(id=${business.id})}" th:object="${business}" method="GET">
-                <input type="submit" value="^Edit" />
+                <input type="submit" value="Edit" />
             </form>
         </dd>
         <dd>
-                <form action="#" th:action="@{/delete/${business.id}}" method="get">
-                <input type="submit" value="*Delete" style="color:red" />
+                <form action="#" th:action="@{/delete/{id}(id=${business.id})}" method="get">
+                <input type="submit" value="Delete" style="color:red" />
             </form>
         </dd>
+
+        <dd > <b th:text="${business.id}"> </b></dd>
+
         <hr>
     </dl>
 

@@ -57,12 +57,15 @@ public class BusinessController {
     }
 
 // UPDATE - PUT
-    @PutMapping("/update")
-    public Business updateBusiness(@RequestBody Business business) {
-        return service.updateBusiness(business);
+    @PostMapping("/update")
+    public String updateBusiness(@ModelAttribute Business business) {
+        service.updateBusiness(business);
+        return "page-business";
     }
-// DELETE
-    @DeleteMapping("/delete/{id}")
+
+
+    // DELETE
+    @GetMapping("/delete/{id}")
     public String deleteBusiness(@PathVariable long id){
         service.deleteBusiness(id);
         return "redirect:/businesses";
