@@ -1,23 +1,31 @@
 <div th:replace="/Fragments/head"></div>
-<h3>ADD A BUSINESS</h3>
-<p th:text="'To add your business, fill in the form below.(* Hidden)'" />
+
+<div class="gonza">
+
+<h4>APPLY TO ADD A BUSINESS</h4>
+<p th:text="'To apply to add your business to the directory, fill in the form below: '" />
 
 <form th:action="@{/businessSubmit}" th:object="${business}" method="POST">
 
-    <p>First Name: <input type="text" th:field="*{businessName}" placeholder="Business Name" id="businessName" /></p>
-    <p>Email*: <input type="text" th:field="*{email}" /></p>
-    <p>Mobile*: <input type="text" th:field="*{mobile}" /></p>
-    <p>Address: <input type="text" th:field="*{physicalAddress}" /></p>
+    <p>Business Name: <input type="text" th:field="*{businessName}" placeholder="Business Name" id="businessName" /></p>
+    <p>Email: <input type="email" th:field="*{email}" /></p>
+    <p>Mobile: <input type="text" th:field="*{mobile}" /></p>
+    <p>Street Address: <input type="text" th:field="*{physicalAddress}" /></p>
     <p>Location (e.g. Mwenge): <input type="text" th:field="*{location}" /></p>
     <p>Category: <input type="text" th:field="*{category}" /></p>
     <p>Tin Number: <input type="text" th:field="*{tinNumber}" /></p>
     <p>Link: Social media, website, etc - related to your company:</p>
     <input type="text" th:field="*{link}" />
 
-    <br>
+    <br><br>
     <input type="submit" value="Create Profile" />
     <input type="reset" value="Reset" />
+    <input type="submit" value="*Cancel" style="color:red"/>
+
+
 
 </form>
+
+</div>
 
 <div th:replace="/Fragments/footer"></div>

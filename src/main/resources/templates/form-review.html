@@ -1,9 +1,10 @@
 <div th:replace="/Fragments/head"></div>
 
-<h2> WRITE A REVIEW</h2>
+<div class="gonza">
+<h3> WRITE A REVIEW</h3>
 
-<p th:text="'Write an honest review for business # ' + ${personId}"/>
-<!--<p th:object="${person}" th:value="*{firstName}"></p>-->
+<p th:text="'Write an honest review for business # ' + ${businessName}"/>
+<!--<p th:object="${business}" th:value="*{businessName}"></p>-->
 
 <p th:text="'You may include: '"/>
 <p th:text="'* How you came accross the business.'" />
@@ -12,18 +13,22 @@
 
 <form th:action="@{/reviewSubmit}" th:object="${review}" method="POST">
 
-    <p> <input type="text" th:field="*{reviewSubject}" th:value="${businessId}"  /></p>
     <p> <input type="text" th:field="*{reviewContent}" placeholder="Insert your review here" /></p>
     <p> <input type="text" th:field="*{reviewWriterName}" placeholder="Insert your name" /></p>
+
+<!--    <p> <input type="text" th:value="${businessId}" th:field="*{reviewSubjectId}"  /></p>-->
+
+    <!--    <p> <input type="text" th:value="*{review_subject_id}"  /></p>-->
+
 
     <br>
     <input type="submit" value="Submit Review" />
 
-
     <input type="reset" value="Reset" />
 
 
-
 </form>
+
+</div>
 
 <div th:replace="/Fragments/footer"></div>

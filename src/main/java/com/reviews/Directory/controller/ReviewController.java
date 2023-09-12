@@ -12,43 +12,38 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//@RestController  // Data
 @Controller // For attaching FORM since 'RestController' does not.
 public class ReviewController {
     @Autowired
     private ReviewService service;
 
 // CREATE - POST
-    @PostMapping("/addReview1")
-    public Review addReview1(@RequestBody Review review) {
-        return service.saveReview(review);   }
-
-    @PostMapping("/addReviews")
-    public List<Review> addReviews(@RequestBody List<Review> reviews) {
-    return service.saveReviews(reviews);
-}
-
-
-    @PostMapping("/addReview2")
-    public ResponseEntity<?> addReview2(@RequestBody Review review) {
+    @PostMapping("/addRevRE")
+    public ResponseEntity<Review> addReview1(@RequestBody Review review) {
         return new ResponseEntity<>(service.saveReview(review), HttpStatus.OK) ;
     }
+    @PostMapping("/addRevData") // Data
+    public Review addReview2(@RequestBody Review review) {
+        return service.saveReview(review);   }
 
     @PostMapping("/addReviewDto")
     public ResponseEntity<Review> addReviewDto(@RequestBody ReviewDto review) {
         return new ResponseEntity<>(service.saveReviewDto(review), HttpStatus.OK) ;
     }
 
-/*
-    @GetMapping("/reviewForm/{personId}")
-    public List<Review> findAllReviews(@PathVariable Long personId, Model model){
-        model.addAttribute("personId",personId);
-        return "";
+    @PostMapping("/addReviews")
+    public List<Review> addReviews(@RequestBody List<Review> reviews) {
+        return service.saveReviews(reviews);
     }
-*/
 
 // READ - GET*
-    @GetMapping("/reviews")
-    public List<Review> findAllReviews(){return service.getReviews(); }
+    @GetMapping("/reviews1")
+    public ResponseEntity<List<Review>> findAllByReviews(){
+        return ResponseEntity.ok(service.getReviews());
+    }
+    @GetMapping("/reviews2")
+    public List<Review> findAllReviews2(){return service.getReviews(); }
 
     @GetMapping("/review/{id}")
     public  Review findReviewById(@PathVariable long id){
@@ -60,8 +55,7 @@ public class ReviewController {
         return service.getReviewByReviewWriterName(reviewWriterName);
     }
 
-    //BY ID
-    @GetMapping("/people/{id}")
+    @GetMapping("/singleBizReviews/{id}")
     public ResponseEntity<List<Review>> findAllByReviewSubject_Id(@PathVariable Long id){
         return ResponseEntity.ok(service.getReviews(id));
     }
@@ -80,52 +74,63 @@ public class ReviewController {
 
 
 
+// 'ADD REVIEW' FORM & SUBMISSION: GET - READ WITH MODELS ATTRIBUTES
 
-// ADD REVIEW FORM & SUBMISSION: GET - READ WITH MODELS ATTRIBUTES
-
-    @GetMapping("/reviewForm/{personId}/{personName}")
-    public String reviewForm(
-            @PathVariable(name="personId") Long personId,
-            @PathVariable(name="personName") String personName,
-            Model theModel
-    ) {
-
-    // Create REVIEW object as a model attribute.
+    @GetMapping("/reviewForm1")
+    public String reviewForm1(Model theModel) {
         Review theReview = new Review();
-        theModel.addAttribute("personId",personId);
+//        theModel.addAttribute("businessId",businessId);
         theModel.addAttribute("review", theReview);  // Name & value of attribute.
         return "form-review";
     }
 
-    @PostMapping("/reviewSubmit/{id}")
+    @GetMapping("/reviewForm2/{businessId}")
+    public String reviewForm2(@PathVariable long businessId, Model model) {
+        Review theReview = new Review();
+        model.addAttribute("reviewSubjectId", businessId);
+        model.addAttribute("review", theReview);  // Name & value of attribute.
+//        model.setReviewSubjectId(id)
+        return "form-review";
+    }
+
+    /*
+    @GetMapping("/rev/{businessId}")
+    public List<Review> findAllReviews(@PathVariable Long personId, Model model){
+        model.addAttribute("personId",personId);
+        return "";
+    }
+*/
+    @GetMapping("/reviewParam/{id}/{businessName}")
+    public String reviewFormParam(
+            @PathVariable(name="businessId") Long businessId,
+            @PathVariable(name="businessName") String businessName,
+            Model theModel
+    ) {
+    // Create REVIEW object as a model attribute.
+        Review theReview = new Review();
+        theModel.addAttribute("businessId",businessId);
+        theModel.addAttribute("businessName",businessName);
+        theModel.addAttribute("review", theReview);  // Name & value of attribute.
+        return "form-review";
+    }
+
+
+
+    @PostMapping("/reviewSubmit") // /{id}
     public String reviewSubmit(@ModelAttribute Review theReview, Model theModel) {
         theModel.addAttribute("theReview", theReview);  // Name & value of attribute.
         service.saveReview(theReview);
         return "submit-review";
     }
 
-    @RequestMapping("/reviewParam")
-    public String reviewId(
-            @RequestParam("personName") String thePersonName, Model model
-    ) {
-        String testSentence = "Combine with name: " + thePersonName;
-        model.addAttribute("review", testSentence);
-        return "submit-review";
-    }
 
 }
 
 /*
-
 {
-    "id" : "1"
     "reviewContent" : "ABC Limited do great work",
-    "reviewWriterName" : "John Doe"
+    "reviewWriterName" : "John2",
 
     "review_subject_id" : "1"
-
-    "created_at":"2023-07-24 10:10:20",
-    "updated_at":"2023-07-27 10:10:20"
 }
-
 */

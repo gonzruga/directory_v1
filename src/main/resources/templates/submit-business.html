@@ -1,18 +1,33 @@
 <div th:replace="/Fragments/head"></div>
 
-<h3>PROFILE</h3>
-<p th:text="'Welcome! Below are the details you submited. (* hidden)'" />
+<div class="gonza">
+
+<h4>CONFIRM BUSINESS PROFILE</h4>
+<p th:text="'Welcome! Below are the details you submited. If they are ok press SUBMIT and your application will be assessed and response given within 3 working days'" />
+
+<p th:text="'ID*: ' + ${theBusiness.id}" />
 
 <p th:text="'Business Name: ' + ${theBusiness.businessName}" />
-<p th:text="'Email*: ' + ${theBusiness.email}" />
-<p th:text="'Mobile*: ' + ${theBusiness.mobile}" />
+<p th:text="'Email: ' + ${theBusiness.email}" />
+<p th:text="'Mobile: ' + ${theBusiness.mobile}" />
 <p th:text="'Address: ' + ${theBusiness.physicalAddress}" />
 <p th:text="'Location: ' + ${theBusiness.location}" />
 <p th:text="'Category: ' + ${theBusiness.category}" />
 <p th:text="'Tin Number: ' + ${theBusiness.tinNumber}" />
 <p th:text="'Link: ' + ${theBusiness.link}" />
 
-<a href="/">Go to Homepage</a>
-
+<form th:action="@{/businessPage}" th:object="${business}" method="POST" >
+<input type="submit" value="Submit Application" />
 </form>
+
+<form th:action="@{/editBusiness/{id}(id=${theBusiness.id})}" th:object="${theBusiness}" method="GET">
+    <input type="submit" value="^Edit" />
+</form>
+
+<form>
+    <input type="submit" value="*Delete" style="color:red" />
+</form>
+
+</div>
+
 <div th:replace="/Fragments/footer"></div>

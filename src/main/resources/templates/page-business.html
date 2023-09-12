@@ -1,0 +1,30 @@
+<div th:replace="/Fragments/head"></div>
+
+<div class="gonza">
+
+<h4>BUSINESS PROFILE</h4>
+
+<h5 th:text="'ID*: ' + ${business.id}" ></h5>
+
+<p th:text="${business.businessName}" />
+<p th:text="'Email: ' + ${business.email}" />
+
+<p th:text="'Mobile: ' + ${business.mobile}" />
+<p th:text="'Address: ' + ${business.physicalAddress}" />
+<p th:text="'Location: ' + ${business.location}" />
+<p th:text="'Category: ' + ${business.category}" />
+<p th:text="'Tin Number: ' + ${business.tinNumber}" />
+<p th:text="'Link: ' + ${business.link}" />
+
+
+<form th:action="@{/editBusiness/{id}(id=${business.id})}" th:object="${business}" method="GET">
+    <input type="submit" value="^Edit" />
+</form>
+
+<form>
+    <input type="submit" value="*Delete" style="color:red" />
+</form>
+
+</div>
+
+<div th:replace="/Fragments/footer"></div>

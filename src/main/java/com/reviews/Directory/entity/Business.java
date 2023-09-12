@@ -12,8 +12,9 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
+//@ToString
 @RequiredArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "Business")
 public class Business {
@@ -43,19 +44,7 @@ public class Business {
     @OneToMany(mappedBy = "reviewSubject", fetch = FetchType.EAGER)
     private Set<Review> reviews;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Business business = (Business) o;
-        return id != null && Objects.equals(id, business.id);
-    }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
-}
 
 /*
 
@@ -72,5 +61,18 @@ public class Business {
     "created_at":"2023-07-24 10:10:20",
     "updated_at":"2023-07-27 10:10:20"
 }
+## Hash and equals override
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Business business = (Business) o;
+        return id != null && Objects.equals(id, business.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 */
+}

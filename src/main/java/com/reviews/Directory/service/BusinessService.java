@@ -44,7 +44,7 @@ public class BusinessService {
     public String deleteBusiness(long id){
         repository.deleteAllById(Collections.singleton(id));
         // deleteAllById(id)
-        return "Business removed "+ id;
+        return "Business removed with ID number: "+ id;
     }
 
 // UPDATE - PUT

@@ -1,58 +1,61 @@
 <div th:replace="/Fragments/head"></div>
-
 <div class="gonza">
 
-    <h3>BUSINESSES</h3>
+    <h4>BUSINESSES</h4>
     <p th:text="'Here is a list of great businesses:'" />
 
     <br>
 
     <dl th:each="business : ${business}">
-        <p>A business should be displayed</p>
-        <dd > <b th:text="${business.businessName}"> </b></dd>
-        <dd> <i class="fa-solid fa-venus-mars"></i> <span th:text="${business.getPhysicalAddress}"></span> </dd>
+        <dd><a th:href="@{/businessPage/{id}(id=${business.id})}"><b th:text="${business.businessName}"> </b></a> </dd>
+
+<!--        <dd > <b th:text="${business.businessName}"> </b></dd>-->
+<!--        <dd > <b th:text="${business.id}"> </b></dd>-->
+
+        <dd> <i class="fa-solid fa-envelope"></i> <span th:text="${business.getEmail}"></span> </dd>
+        <dd> <i class="fa-solid fa-phone"></i> <span th:text="${business.getMobile()}"></span>  </dd>
+        <dd> <i class="fa-solid fa-road"></i> <span th:text="${business.getPhysicalAddress}"></span> </dd>
         <dd> <i class="fa-solid fa-location-dot"></i> <span th:text="${business.getLocation}"></span> </dd>
-        <dd> <i class="fa-solid fa-user-tie"></i> <span th:text="${business.getCategory}"></span></dd>
-        <dd> <i class="fa-solid fa-basketball"></i> <span th:text="${business.getTinNumber}"></span>  </dd>
+        <dd> <i class="fa-solid fa-filter"></i> <span th:text="${business.getCategory}"></span></dd>
+        <dd> <p th:text="'Tax Id Number:'"> <span th:text="${business.getTinNumber}"></span>  </dd>
         <dd> <i class="fa-solid fa-globe"></i> <span  th:text="${business.link}" ></span> </dd>
-        <dd> Reviews: </dd>
+
+        <dd> <b>Reviews:</b> </dd>
+
+                    <dl th:each="rev : ${business.reviews}">
+                        <dd> <i class="fa-solid fa-image-portrait"></i> <span th:text="${rev.getReviewWriterName()}" style="color:blue"></span> </dd>
+                        <dd> <i class="fa-regular fa-comment-dots"></i> <span th:text="${rev.getReviewContent()}"> </span> </dd>
+                    </dl>
+
+<!--        <dd th:text="${business.reviews.getReviewContent()}"></dd>-->
+<!--        <dd> <i class="fa-solid fa-globe"></i> <span  th:text="${business.reviews.stream().forEach(u -> u.get).toArray()}" ></span> </dd>-->
+
         <dd>
-            <form action="#" th:action="@{reviewForm/1/Jones}" method="get">
+            <form action="#" th:action="@{/reviewParam/{businessId}(businessId=${business.id})/{businessName}(businessName=${business.businessName})}" method="get">
                 <input type="submit" value="Add review"  />
-<!--                <input type="text" name="personId" th:value="${business.id}" hidden="hidden">-->
-<!--                <input type="text" name="personName" th:value="${business.firstName}" hidden="hidden">-->
-
+<!--                <span th:text="${business.id}" ></span>-->
             </form>
-
         </dd>
-
-<!--        <dd>-->
-<!--            <form th:action="@{reviewParam}" method="get">-->
-<!--                <input type="submit" value="Add review"  />-->
-<!--                <input type="text" name="personId" th:value="${business.id}" hidden="hidden">-->
-<!--                <input type="text" name="personName" th:value="${business.firstName}" hidden="hidden">-->
-
-<!--            </form>-->
-
-<!--        </dd>-->
-
-
         <dd>
-            <a
-                    style="border: 1px solid gray; padding: 12px 6px; border-radius: 4px;"
-                    th:href="@{reviewForm/{personId}(personId = ${business.id})}">Review Form</a>
+            <form th:action="@{/editBusiness/{id}(id=${business.id})}" th:object="${business}" method="GET">
+                <input type="submit" value="^Edit" />
+            </form>
         </dd>
-        <br>
+        <dd>
+                <form action="#" th:action="@{/delete/${business.id}}" method="get">
+                <input type="submit" value="*Delete" style="color:red" />
+            </form>
+        </dd>
         <hr>
     </dl>
 
-    <br>
+<!--    <dl th:each="rev : ${business.reviews}">-->
+<!--        <dd th:text="${rev.getReviewWriterName()}" style="color:blue"> </dd>-->
+<!--        <dd th:text="${rev.getReviewContent()}"></dd>-->
+<!--    <dl>-->
 
-    <br>
-    <a href="/">Go to Homepage</a>
-
-    </form>
 
 </div>
+
 
 <div th:replace="/Fragments/footer"></div>

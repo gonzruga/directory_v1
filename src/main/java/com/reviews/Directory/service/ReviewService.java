@@ -17,15 +17,19 @@ import java.util.List;
 public class ReviewService {
 
     private final ReviewRepository repository;
-    private final BusinessService personService;
+    private final BusinessService businessService;
 
 // CREATE - POST
     public Review saveReview(Review review) {
         return repository.save(review);
     }
+    public List<Review>  saveReviews(List<Review> reviews) {
+        return repository.saveAll(reviews);
+    }
+
     public Review saveReviewDto(ReviewDto review) {
         try {
-            Business business = personService.getBusinessById(review.getReviewSubjectId());
+            Business business = businessService.getBusinessById(review.getReviewSubjectId());
             if (business != null){
                 Review review1 = new Review();
                 review1.setReviewSubject(business);
@@ -41,9 +45,6 @@ public class ReviewService {
         }
     }
 
-    public List<Review>  saveReviews(List<Review> reviews) {
-        return repository.saveAll(reviews);
-    }
 
 // READ - GET
 

@@ -4,6 +4,7 @@ import com.reviews.Directory.entity.Business;
 import com.reviews.Directory.service.BusinessService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
+//@RestController // For returning data, not template
 @RequiredArgsConstructor
 public class BusinessController {
     private final BusinessService service;
@@ -22,7 +24,7 @@ public class BusinessController {
         return service.saveBusiness(business);
     }
 
-    @PostMapping("/addBiz2")
+    @PostMapping("/addBusinesses")
     public List<Business> addBusinesses(@RequestBody List<Business> businesses) {
         return service.saveBusinesses(businesses);
     }
@@ -30,13 +32,22 @@ public class BusinessController {
 // READ - GET
     @GetMapping("/businesses")
     public String findAllBusinesses(Model model){
-        model.addAttribute("businesses",service.getBusinesses());
-        model.addAttribute("test", "Test");
+        model.addAttribute("business",service.getBusinesses());
         return "business-list";
- }
+    }
+
+    @GetMapping("/biz1")
+    public ResponseEntity<List<Business>> findAllBusinesses1(){
+        return  ResponseEntity.ok(service.getBusinesses());
+    }
+    @GetMapping("/biz2") //Rest
+    public List<Business> findAllBusinesses2(){
+       return  service.getBusinesses();
+    }
+
 
     @GetMapping("/business/{id}")
-    public Business findPersonById(@PathVariable long id){
+    public Business findBusinessById(@PathVariable long id){
         return service.getBusinessById(id);
     }
 
@@ -53,11 +64,12 @@ public class BusinessController {
 // DELETE
     @DeleteMapping("/delete/{id}")
     public String deleteBusiness(@PathVariable long id){
-        return service.deleteBusiness(id);
+        service.deleteBusiness(id);
+        return "redirect:/businesses";
     }
 
 
-// ADD BUSINESS FORM & SUBMISSION: GET - READ WITH MODELS ATTRIBUTES
+// FORMS & PAGES
 
     @GetMapping("/businessForm")
     public String businessForm(Model theModel) {
@@ -67,15 +79,39 @@ public class BusinessController {
     // Add BUSINESS object as a model attribute.
     theModel.addAttribute("business", theBusiness);  // Name & value of attribute.
     return "form-business";
-}
+    }
 
     @PostMapping("/businessSubmit")
     public String businessSubmit(@ModelAttribute Business theBusiness, Model theModel) {
         theModel.addAttribute("theBusiness", theBusiness);  // Name & value of attribute.
-//        System.out.println(thePerson);
         service.saveBusiness(theBusiness);
         return "submit-business";
     }
+
+    @GetMapping("/businessPage/{id}")
+    public String businessPage(@PathVariable long id, Model model) {
+        model.addAttribute("business", service.getBusinessById(id));  // Name & value of attribute.
+        return"page-business";
+    }
+
+//@GetMapping("/editBusiness")
+//public String editBusiness(Long id, Model theModel){
+//        try {
+//            Optional<Business>business=BusinessService.findById(id);
+//            business.ifPresent(value -> theModel.addAttribute("business", value));
+//        } catch (Exception e) {
+//            log.error(e);
+//        }
+//        return "edit-business";
+//}
+
+@GetMapping("/editBusiness/{id}")
+public String editBusiness(@PathVariable long id, Model theModel){
+        Business theBusiness = new Business();
+            theBusiness = service.getBusinessById(id);
+            theModel.addAttribute("business", theBusiness);
+        return "edit-business";
+}
 
 
 }
